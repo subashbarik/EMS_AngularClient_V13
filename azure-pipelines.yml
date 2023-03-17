@@ -25,28 +25,28 @@ steps:
   displayName: Test
   inputs:
     command: custom
-    workingDir: 'EMS_ANGULARCLIENT'
+    workingDir: 'EMS_ANGULARCLIENT_V13'
     verbose: false
     customCommand: 'run test-headless'
   continueOnError: true
 - task: PublishTestResults@2
-  displayName: 'Publish Test Results $(Build.SourcesDirectory)/EMS_ANGULARCLIENT/projects/web-app/test_report/TESTS-*.xml'
+  displayName: 'Publish Test Results $(Build.SourcesDirectory)/EMS_ANGULARCLIENT_V13/projects/web-app/test_report/TESTS-*.xml'
   inputs:
-    testResultsFiles: '$(Build.SourcesDirectory)/EMS_ANGULARCLIENT/projects/web-app/test_report/TESTS-*.xml'
+    testResultsFiles: '$(Build.SourcesDirectory)/EMS_ANGULARCLIENT_V13/projects/web-app/test_report/TESTS-*.xml'
 - task: PublishCodeCoverageResults@1
-  displayName: 'Publish code coverage from $(Build.SourcesDirectory)/EMS_ANGULARCLIENT/coverage/**/*cobertura-coverage.xml'
+  displayName: 'Publish code coverage from $(Build.SourcesDirectory)/EMS_ANGULARCLIENT_V13/coverage/**/*cobertura-coverage.xml'
   inputs:
     codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)/EMS_ANGULARCLIENT/coverage/**/*cobertura-coverage.xml'
+    summaryFileLocation: '$(Build.SourcesDirectory)/EMS_ANGULARCLIENT_V13/coverage/**/*cobertura-coverage.xml'
 - task: Npm@1
   displayName: Build
   inputs:
     command: custom
-    workingDir: 'EMS_ANGULARCLIENT'
+    workingDir: 'EMS_ANGULARCLIENT_V13'
     verbose: false
     customCommand: 'run build-dev'
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: dist'
   inputs:
-    PathtoPublish: 'EMS_ANGULARCLIENT\dist\web-app'
+    PathtoPublish: 'EMS_ANGULARCLIENT_V13\dist\web-app'
     ArtifactName: dist

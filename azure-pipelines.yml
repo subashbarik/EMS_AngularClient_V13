@@ -12,7 +12,7 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '16.x'
+    versionSpec: '16.16.0'
   displayName: 'Install Node.js'
 
 - script: |
@@ -24,7 +24,7 @@ steps:
   inputs:
     command: custom
     verbose: false
-    customCommand: 'run build-dev'
+    customCommand: 'run build'
 - task: Npm@1
   displayName: Test
   inputs:

@@ -31,7 +31,7 @@ steps:
     customCommand: "run test-headless"
 - script: 
     mkdir $(Build.ArtifactStagingDirectory)\\dist
-    xcopy "dist\client" $(Build.ArtifactStagingDirectory)\\dist /E/H/C
+    xcopy "dist\client" $(Build.ArtifactStagingDirectory)\\dist
   displayName: "Copy dist content"
 - task: PublishBuildArtifacts@1
   displayName: "Publish Artifact: dist"

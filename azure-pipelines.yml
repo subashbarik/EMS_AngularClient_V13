@@ -13,28 +13,25 @@ steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '16.16.0'
-  displayName: 'Install Node.js'
+  displayName: "Install Node.js"
 
-- script: |
-    npm install -g @angular/cli@13.0.0
-    npm install
-  displayName: 'npm install'
 - task: Npm@1
-  displayName: Build
+  inputs:
+    command: "install"
+  displayName: "npm install"
+- task: Npm@1
+  displayName: "Build"
   inputs:
     command: custom
-    verbose: false
-    customCommand: 'run build'
+    customCommand: "run build"
 - task: Npm@1
-  displayName: Test
+  displayName: "Test"
   inputs:
     command: custom
-    verbose: false
-    customCommand: 'run test-headless'
-  continueOnError: true
+    customCommand: "run test-headless"
 - script: 
     mkdir $(Build.ArtifactStagingDirectory)\\dist
     xcopy "dist\client" $(Build.ArtifactStagingDirectory)\\dist /E/H/C
-  displayName: Copy dist content
+  displayName: "Copy dist content"
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: dist'
+  displayName: "Publish Artifact: dist"

@@ -19,7 +19,12 @@ steps:
     npm install -g @angular/cli@13.0.0
     npm install
   displayName: 'npm install'
-  
+- task: Npm@1
+  displayName: Build
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'run build-dev'
 - task: Npm@1
   displayName: Test
   inputs:
@@ -27,24 +32,9 @@ steps:
     verbose: false
     customCommand: 'run test-headless'
   continueOnError: true
-- task: PublishTestResults@2
-  displayName: 'Publish Test Results $(Build.SourcesDirectory)/test_report/TESTS-*.xml'
-  inputs:
-    testResultsFiles: '$(Build.SourcesDirectory)/test_report/TESTS-*.xml'
-- task: PublishCodeCoverageResults@1
-  displayName: 'Publish code coverage from $(Build.SourcesDirectory)/coverage/**/*cobertura-coverage.xml'
-  inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)/coverage/**/*cobertura-coverage.xml'
-- task: Npm@1
-  displayName: Build
-  inputs:
-    command: custom
-    verbose: false
-    customCommand: 'run build-dev'
+- script: 
+    mkdir $(Build.ArtifactStagingDirectory)\\dist
+    xcopy "dist\client" $(Build.ArtifactStagingDirectory)\\dist /E/H/C
+  displayName: Copy dist content
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: dist'
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'dist'
-    publishLocation: 'Container'

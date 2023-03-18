@@ -9,6 +9,8 @@ trigger:
 pool:
   vmImage: windows-latest
 
+workspace:
+  clean: all
 steps:
 - task: NodeTool@0
   inputs:
